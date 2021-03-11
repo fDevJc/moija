@@ -1,14 +1,35 @@
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: null,
+    };
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/')
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        this.setState({ title: data.title });
+      });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+        </header>
+        {this.state.title ? <h1>{this.state.title}</h1> : <h1>loading...</h1>}
+      </div>
+    );
+  }
 }
 
 export default App;
