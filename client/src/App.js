@@ -1,35 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Home from './routes/Home';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Navigation from './components/Navigation';
+import Profile from './routes/Profile';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: null,
-    };
-  }
-
-  componentDidMount() {
-    fetch('http://localhost:3001/')
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        this.setState({ title: data.title });
-      });
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
-        {this.state.title ? <h1>{this.state.title}</h1> : <h1>loading...</h1>}
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <Router>
+      <Navigation />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
+      </Switch>
+    </Router>
+  );
+};
 
 export default App;
