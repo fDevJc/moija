@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup';
 import Axios from 'axios';
 
 const Home = () => {
-  const [place, setPlace] = useState();
+  const [place, setPlace] = useState('');
   const onSubmit = async (event) => {
     event.preventDefault();
     let form = {
@@ -26,15 +26,20 @@ const Home = () => {
           {(close) => (
             <>
               <form onSubmit={onSubmit}>
-                <input type="text" name="wayGubn"></input>
+                <input type="text"></input>
                 <br />
-                <input type="text" onChange={onChange} value={place} />
+                <input
+                  type="text"
+                  name="place"
+                  onChange={onChange}
+                  value={place}
+                />
                 <br />
-                <input type="text" name="date"></input>
+                <input type="text"></input>
                 <br />
-                <input type="text" name="time"></input>
+                <input type="text"></input>
                 <br />
-                <input type="submit" value="regit"></input>
+                <input type="submit"></input>
               </form>
 
               <button
