@@ -9,6 +9,12 @@ const Navigation = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
+          <div>검색</div>
+        </li>
+        <li>
+          <Link to="/profile">로그인</Link>
+        </li>
+        <li>
           <Link to="/profile">Profile</Link>
         </li>
       </ul>

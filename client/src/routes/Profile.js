@@ -9,6 +9,9 @@ const Profile = () => {
       <div>
         <div>활동사항</div>
       </div>
+      <div>
+        <div>활동통계</div>
+      </div>
     </>
   );
 };
