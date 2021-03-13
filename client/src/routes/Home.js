@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
 import Axios from 'axios';
 
 const Home = () => {
+  const [place, setPlace] = useState();
   const onSubmit = async (event) => {
     event.preventDefault();
+    let form = {
+      place: place,
+    };
+    const res = await Axios.post('http://localhost:3001/game', form);
+  };
+  const onChange = (event) => {
+    const {
+      target: { value },
+    } = event;
 
-    const res = await Axios.post('http://localhost:3001/game');
-
-    console.log(res);
-    /*
-    fetch('http://localhost:3001/game')
-      .then((res) => {
-        console.log('submit regit');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      */
+    setPlace(value);
   };
   return (
     <>
@@ -27,13 +26,13 @@ const Home = () => {
           {(close) => (
             <>
               <form onSubmit={onSubmit}>
-                팀,개인<input type="text"></input>
+                <input type="text" name="wayGubn"></input>
                 <br />
-                장소<input type="text"></input>
+                <input type="text" onChange={onChange} value={place} />
                 <br />
-                일시<input type="text"></input>
+                <input type="text" name="date"></input>
                 <br />
-                시간<input type="text"></input>
+                <input type="text" name="time"></input>
                 <br />
                 <input type="submit" value="regit"></input>
               </form>
