@@ -1,38 +1,33 @@
 const express = require('express');
-
-const { Sequelize } = require('sequelize');
-
-const app = express();
 const cors = require('cors');
 
-app.set('port', process.env.PORT || 3001);
+const { sequelize } = require('./models');
 
+const app = express();
+//세터
+app.set('port', process.env.PORT || 3001);
+//미들웨어
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+//데이터베이스
+sequelize
+  .sync({ forces: false })
+  .then(() => {
+    console.log('Database connect success');
+  })
+  .catch((err) => {
+    console.log('Database connect err : ', err);
+  });
 
-app.get('/', (req, res) => {
-  res.send({ title: 'Hello Express' });
-});
-
-app.post('/game', (req, res, next) => {
-  const { place } = req.body;
-  console.log(place);
-
-  res.send({ title: 'Hello Express' });
-});
-
-const sequelize = new Sequelize('moija', 'root', 'didwl1cjf@@', {
-  host: 'localhost',
-  dialect: 'mysql',
-});
-
-//에러
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.render(err);
+//게임등록
+app.post('/game', (req, res) => {
+  console.log(req.body);
+  res.status(200).send('wow');
 });
 
 app.listen(app.get('port'), () => {
   console.log(`PORT: ${app.get('port')} Server running....`);
 });
+
+module.exports = app;
