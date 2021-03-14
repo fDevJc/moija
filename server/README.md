@@ -13,3 +13,7 @@ sequelize(mysql를 이용하기 위한 모듈)
 
 > npm i sequelize # This will install v6
 > npm i mysql2
+
+jest (testing library)
+
+> npm i -D jest
