@@ -4,7 +4,7 @@ const App = require('./app');
 describe('게임등록 테스트 /game', () => {
   it('test', async (done) => {
     const data = {
-      gameGubn: 'team',
+      teamGubn: 'team',
       place: 'jinju',
       date: '20210312',
       timeTo: '18:00',
