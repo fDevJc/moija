@@ -1,8 +1,8 @@
 const request = require('supertest');
 const App = require('./app');
-
+/*
 describe('게임등록 테스트 /game', () => {
-  it('test', async (done) => {
+  it('post /game', async (done) => {
     const data = {
       teamGubn: 'team',
       place: 'jinju',
@@ -14,5 +14,16 @@ describe('게임등록 테스트 /game', () => {
     expect(response.status).toEqual(200);
 
     done();
+  });
+});
+*/
+describe('게임등록 테스트 /game', () => {
+  it('get /game', async () => {
+    /*
+    const response = await request(App).get('/game');
+    console.log(response);
+    expect(response.statusCode).toBe(200);
+    */
+    return request(App).get('/game').expect(200);
   });
 });

@@ -39,6 +39,19 @@ app.post('/game', async (req, res) => {
   }
 });
 
+app.get('/game', async (req, res) => {
+  try {
+    const data = await Game.findAll({
+      model: Game,
+      attributes: ['place', 'date'],
+    });
+    console.log(data);
+    return res.json({ code: 200, payload: data });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.listen(app.get('port'), () => {
   console.log(`PORT: ${app.get('port')} Server running....`);
 });
