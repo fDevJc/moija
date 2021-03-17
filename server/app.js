@@ -26,7 +26,7 @@ sequelize
 app.post('/game', async (req, res) => {
   try {
     await Game.create({
-      game_gubn: req.body.teamGubn,
+      game_gubn: req.body.gameGubn,
       place: req.body.place,
       date: req.body.date,
       timeFrom: req.body.timeFrom,
@@ -43,7 +43,7 @@ app.get('/game', async (req, res) => {
   try {
     const data = await Game.findAll({
       model: Game,
-      attributes: ['place', 'date'],
+      attributes: ['id', 'game_gubn', 'place', 'date', 'timeFrom', 'timeTo'],
     });
     console.log(data);
     return res.json({ code: 200, payload: data });

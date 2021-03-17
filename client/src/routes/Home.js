@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
 import Axios from 'axios';
 
 const Home = () => {
-  const [teamGubn, setTeamGubn] = useState('');
+  const [gameGubn, setGameGubn] = useState('');
   const [place, setPlace] = useState('');
   const [date, setDate] = useState('');
   const [timeFrom, setTimeFrom] = useState('');
   const [timeTo, setTimeTo] = useState('');
+  const [games, setGames] = useState([]);
 
   const onSubmit = async (event) => {
     event.preventDefault();
     let form = {
-      teamGubn,
+      gameGubn,
       place,
       date,
       timeFrom,
       timeTo,
     };
-    const res = await Axios.post('http://localhost:3001/game', form);
+    await Axios.post('http://localhost:3001/game', form);
   };
   const onChange = (event) => {
     const {
@@ -26,8 +27,8 @@ const Home = () => {
     } = event;
 
     switch (name) {
-      case 'teamGubn':
-        setTeamGubn(value);
+      case 'gameGubn':
+        setGameGubn(value);
         break;
       case 'place':
         setPlace(value);
@@ -41,12 +42,20 @@ const Home = () => {
       case 'timeTo':
         setTimeTo(value);
         break;
+      default:
+        break;
     }
   };
-  const getTest = async (event) => {
+  const getGames = async () => {
     const res = await Axios.get('http://localhost:3001/game');
-    console.log(res.data.payload);
+    console.log('getGames');
+    setGames(res.data.payload);
   };
+  useEffect(() => {
+    console.log('useEffect');
+    getGames();
+  }, []);
+  const getTest = async (event) => {};
   return (
     <>
       <button onClick={getTest}>test</button>
@@ -59,9 +68,9 @@ const Home = () => {
                 <div>
                   <input
                     type="text"
-                    name="teamGubn"
+                    name="gameGubn"
                     onChange={onChange}
-                    value={teamGubn}
+                    value={gameGubn}
                   />
                 </div>
                 <div>
@@ -113,6 +122,17 @@ const Home = () => {
         </Popup>
 
         <div>경기 목록영역</div>
+        <div style={{ backgroundColor: 'red' }}>
+          {games.map((game) => {
+            return (
+              <div key={game.id}>
+                {game.game_gubn} , {game.place} , {game.date} , {game.timeFrom}{' '}
+                , {game.timeTo}
+                <button>참가하기</button>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );
