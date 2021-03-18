@@ -52,6 +52,12 @@ app.get('/game', async (req, res) => {
   }
 });
 
+//autj
+app.post('/auth/local-login', (req, res) => {
+  console.log(req.body);
+  res.send('wow');
+});
+
 app.listen(app.get('port'), () => {
   console.log(`PORT: ${app.get('port')} Server running....`);
 });

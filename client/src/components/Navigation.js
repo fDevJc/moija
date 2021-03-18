@@ -12,7 +12,7 @@ const Navigation = () => {
           <div>검색</div>
         </li>
         <li>
-          <Link to="/profile">로그인</Link>
+          <Link to="/login">로그인</Link>
         </li>
         <li>
           <Link to="/profile">Profile</Link>
