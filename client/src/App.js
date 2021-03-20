@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Profile from './routes/Profile';
 import Login from './routes/Login';
+import Join from './routes/Join';
 import ProfileEdit from './routes/ProfileEdit';
 
 const App = () => {
@@ -20,8 +21,11 @@ const App = () => {
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/ProfileEdit">
+        <Route path="/profileEdit">
           <ProfileEdit />
+        </Route>
+        <Route path="/auth/join">
+          <Join />
         </Route>
       </Switch>
     </Router>

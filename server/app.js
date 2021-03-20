@@ -52,10 +52,15 @@ app.get('/game', async (req, res) => {
   }
 });
 
-//autj
+//auth
 app.post('/auth/local-login', (req, res) => {
   console.log(req.body);
   res.send('wow');
+});
+
+app.post('/auth/join', (req, res) => {
+  console.log(req.body);
+  res.send('ok');
 });
 
 app.listen(app.get('port'), () => {

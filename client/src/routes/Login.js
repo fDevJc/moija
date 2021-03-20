@@ -52,6 +52,7 @@ const Login = () => {
         </div>
         <input type="submit" value="로그인" />
       </form>
+      <a href="/auth/join">회원가입</a>
       <a href="/auth/kakao-login">카카오</a>
     </>
   );
