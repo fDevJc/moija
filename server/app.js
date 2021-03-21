@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const { sequelize } = require('./models');
 const Game = require('./models/game');
+const User = require('./models/user');
 
 const app = express();
 //세터
@@ -12,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //데이터베이스
-/*
+
 sequelize
   .sync({ forces: false })
   .then(() => {
@@ -21,7 +22,7 @@ sequelize
   .catch((err) => {
     //console.log('Database connect err : ', err);
   });
-*/
+
 //게임등록
 app.post('/game', async (req, res) => {
   try {
@@ -53,14 +54,22 @@ app.get('/game', async (req, res) => {
 });
 
 //auth
-app.post('/auth/local-login', (req, res) => {
+app.post('/auth/local-login', async (req, res) => {
   console.log(req.body);
   res.send('wow');
 });
 
-app.post('/auth/join', (req, res) => {
-  console.log(req.body);
-  res.send('ok');
+app.post('/auth/join', async (req, res) => {
+  try {
+    await User.create({
+      email: req.body.email,
+      password: req.body.password,
+      provider: 'local',
+    });
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.listen(app.get('port'), () => {

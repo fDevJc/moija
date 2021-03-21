@@ -1,9 +1,11 @@
 import Axios from 'axios';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Join = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const history = useHistory();
 
   const onChange = (event) => {
     const {
@@ -22,8 +24,12 @@ const Join = () => {
 
     const res = await Axios.post('http://localhost:3001/auth/join', data);
 
-    console.log(res);
+    if (res.status === 200) {
+      console.log('200ok');
+      history.push('/login');
+    }
   };
+
   return (
     <>
       <form onSubmit={onSubmit}>

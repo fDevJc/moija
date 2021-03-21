@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
 const Game = require('./game');
+const User = require('./user');
 
 const db = {};
 
@@ -15,7 +16,9 @@ const sequelize = new Sequelize(
 db.sequelize = sequelize;
 
 db.Game = Game;
+db.User = User;
 
 Game.init(sequelize);
+User.init(sequelize);
 
 module.exports = db;
