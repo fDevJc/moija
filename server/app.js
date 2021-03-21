@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const passport = require('passport');
 
 const { sequelize } = require('./models');
 const Game = require('./models/game');
@@ -56,6 +57,8 @@ app.get('/game', async (req, res) => {
 //auth
 app.post('/auth/local-login', async (req, res) => {
   console.log(req.body);
+  //login function
+  passport.authenticate();
   res.send('wow');
 });
 
