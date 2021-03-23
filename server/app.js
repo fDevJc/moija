@@ -1,18 +1,37 @@
 const express = require('express');
 const cors = require('cors');
 const passport = require('passport');
+const session = require('express-session');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const { sequelize } = require('./models');
 const Game = require('./models/game');
 const User = require('./models/user');
 
+const passportConfig = require('./passport');
+
 const app = express();
+passportConfig();
 //세터
 app.set('port', process.env.PORT || 3001);
 //미들웨어
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+    },
+  })
+);
+
 //데이터베이스
 
 sequelize
@@ -21,8 +40,11 @@ sequelize
     console.log('Database connect success');
   })
   .catch((err) => {
-    //console.log('Database connect err : ', err);
+    console.log('Database connect err : ', err);
   });
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 //게임등록
 app.post('/game', async (req, res) => {
@@ -55,11 +77,26 @@ app.get('/game', async (req, res) => {
 });
 
 //auth
-app.post('/auth/local-login', async (req, res) => {
-  console.log(req.body);
-  //login function
-  passport.authenticate();
-  res.send('wow');
+app.post('/auth/local-login', async (req, res, next) => {
+  passport.authenticate('local', (authErr, user, info) => {
+    if (authErr) {
+      console.log('login 1');
+      console.error(authErr);
+      return next(authErr);
+    }
+    if (!user) {
+      console.log('login 2');
+      return res.send('loginErr');
+    }
+    return req.login(user, (loginErr) => {
+      console.log('login 3');
+      if (loginErr) {
+        console.log(loginErr);
+        next(loginErr);
+      }
+      res.send('login ok');
+    });
+  })(req, res, next);
 });
 
 app.post('/auth/join', async (req, res) => {
@@ -73,6 +110,11 @@ app.post('/auth/join', async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.send('err');
 });
 
 app.listen(app.get('port'), () => {
