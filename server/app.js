@@ -33,7 +33,6 @@ app.use(
 );
 
 //데이터베이스
-
 sequelize
   .sync({ forces: false })
   .then(() => {
@@ -80,16 +79,13 @@ app.get('/game', async (req, res) => {
 app.post('/auth/local-login', async (req, res, next) => {
   passport.authenticate('local', (authErr, user, info) => {
     if (authErr) {
-      console.log('login 1');
       console.error(authErr);
       return next(authErr);
     }
     if (!user) {
-      console.log('login 2');
       return res.send('loginErr');
     }
     return req.login(user, (loginErr) => {
-      console.log('login 3');
       if (loginErr) {
         console.log(loginErr);
         next(loginErr);
