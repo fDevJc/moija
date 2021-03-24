@@ -3,17 +3,18 @@ const cors = require('cors');
 const passport = require('passport');
 const session = require('express-session');
 const dotenv = require('dotenv');
-
 dotenv.config();
 
 const { sequelize } = require('./models');
-const Game = require('./models/game');
-const User = require('./models/user');
-
+//router
+const gameRouter = require('./routes/Game');
+const authRouter = require('./routes/Auth');
+//passport
 const passportConfig = require('./passport');
+passportConfig();
 
 const app = express();
-passportConfig();
+
 //세터
 app.set('port', process.env.PORT || 3001);
 //미들웨어
@@ -31,7 +32,6 @@ app.use(
     },
   })
 );
-
 //데이터베이스
 sequelize
   .sync({ forces: false })
@@ -45,68 +45,8 @@ sequelize
 app.use(passport.initialize());
 app.use(passport.session());
 
-//게임등록
-app.post('/game', async (req, res) => {
-  try {
-    await Game.create({
-      game_gubn: req.body.gameGubn,
-      place: req.body.place,
-      date: req.body.date,
-      timeFrom: req.body.timeFrom,
-      timeTo: req.body.timeTo,
-    });
-    res.status(200).send('ok');
-  } catch (err) {
-    console.log(err);
-    res.status(500).send('err');
-  }
-});
-
-app.get('/game', async (req, res) => {
-  try {
-    const data = await Game.findAll({
-      model: Game,
-      attributes: ['id', 'game_gubn', 'place', 'date', 'timeFrom', 'timeTo'],
-    });
-    console.log(data);
-    return res.json({ code: 200, payload: data });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-//auth
-app.post('/auth/local-login', async (req, res, next) => {
-  passport.authenticate('local', (authErr, user, info) => {
-    if (authErr) {
-      console.error(authErr);
-      return next(authErr);
-    }
-    if (!user) {
-      return res.send('loginErr');
-    }
-    return req.login(user, (loginErr) => {
-      if (loginErr) {
-        console.log(loginErr);
-        next(loginErr);
-      }
-      res.send('login ok');
-    });
-  })(req, res, next);
-});
-
-app.post('/auth/join', async (req, res) => {
-  try {
-    await User.create({
-      email: req.body.email,
-      password: req.body.password,
-      provider: 'local',
-    });
-    res.sendStatus(200);
-  } catch (err) {
-    console.log(err);
-  }
-});
+app.use('/game', gameRouter);
+app.use('/auth', authRouter);
 
 app.use((err, req, res, next) => {
   console.log(err);
