@@ -19,11 +19,8 @@ const Join = () => {
   };
   const onSubmit = async (event) => {
     event.preventDefault();
-
     const data = { email, password };
-
     const res = await Axios.post('http://localhost:3001/auth/join', data);
-
     if (res.status === 200) {
       console.log('200ok');
       history.push('/login');
@@ -31,9 +28,9 @@ const Join = () => {
   };
 
   return (
-    <>
+    <div style={{}}>
       <form onSubmit={onSubmit}>
-        <div>
+        <div style={{ textAlign: 'center' }}>
           <input
             type="email"
             name="email"
@@ -41,7 +38,7 @@ const Join = () => {
             onChange={onChange}
           />
         </div>
-        <div>
+        <div style={{ textAlign: 'center' }}>
           <input
             type="password"
             name="password"
@@ -49,11 +46,11 @@ const Join = () => {
             onChange={onChange}
           />
         </div>
-        <div>
+        <div style={{ textAlign: 'center' }}>
           <input type="submit" value="회원가입" />
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

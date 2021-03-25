@@ -5,7 +5,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const onLocalLogin = async (event) => {
-    //locallogin
     event.preventDefault();
     console.log('local-login');
     const data = { email, password };
@@ -27,34 +26,41 @@ const Login = () => {
     }
   };
   return (
-    <>
-      <form onSubmit={onLocalLogin}>
+    <div style={{ display: 'flex' }}>
+      <div style={{ flex: 2 }}>이미지</div>
+      <div style={{ flex: 1 }}>
+        <form onSubmit={onLocalLogin}>
+          <div>
+            <input
+              name="email"
+              type="email"
+              placeholder="email"
+              value={email}
+              required
+              autoFocus
+              onChange={onChange}
+            />
+          </div>
+          <div>
+            <input
+              name="password"
+              type="password"
+              placeholder="password"
+              value={password}
+              required
+              onChange={onChange}
+            />
+          </div>
+          <input type="submit" value="로그인" />
+        </form>
         <div>
-          <input
-            name="email"
-            type="email"
-            placeholder="email"
-            value={email}
-            required
-            autoFocus
-            onChange={onChange}
-          />
+          <a href="/auth/join">회원가입</a>
         </div>
         <div>
-          <input
-            name="password"
-            type="password"
-            placeholder="password"
-            value={password}
-            required
-            onChange={onChange}
-          />
+          <a href="/auth/kakao-login">카카오</a>
         </div>
-        <input type="submit" value="로그인" />
-      </form>
-      <a href="/auth/join">회원가입</a>
-      <a href="/auth/kakao-login">카카오</a>
-    </>
+      </div>
+    </div>
   );
 };
 

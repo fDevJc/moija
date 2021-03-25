@@ -7,12 +7,13 @@ const Profile = () => {
       <div>img</div>
       <div>name</div>
       <Link to="/profileEdit">ProfileEdit</Link>
-      <button>프로필편집</button>
-      <div>
-        <div>활동사항</div>
-      </div>
-      <div>
-        <div>활동통계</div>
+      <div style={{ display: 'flex', marginTop: 10 }}>
+        <div style={{ flex: 1 }}>
+          <div>활동사항</div>
+        </div>
+        <div style={{ flex: 1 }}>
+          <div>활동통계</div>
+        </div>
       </div>
     </>
   );

@@ -26,7 +26,6 @@ router.get('/', async (req, res) => {
       model: Game,
       attributes: ['id', 'game_gubn', 'place', 'date', 'timeFrom', 'timeTo'],
     });
-    console.log(data);
     return res.json({ code: 200, payload: data });
   } catch (err) {
     console.log(err);
