@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Axios from 'axios';
-import GameGrid from './GameGrid';
+import GameGrid from '../components/GameGrid';
 import NewGamePopup from '../components/NewGamePopup';
 
 const Home = () => {
