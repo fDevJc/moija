@@ -6,6 +6,7 @@ import Profile from './routes/Profile';
 import Login from './routes/Login';
 import Join from './routes/Join';
 import ProfileEdit from './routes/ProfileEdit';
+import GameDetail from './routes/GameDetail';
 
 const App = () => {
   return (
@@ -26,6 +27,9 @@ const App = () => {
         </Route>
         <Route path="/auth/join">
           <Join />
+        </Route>
+        <Route path="/game/detail">
+          <GameDetail />
         </Route>
       </Switch>
     </Router>
