@@ -8,7 +8,11 @@ const Login = () => {
     event.preventDefault();
     console.log('local-login');
     const data = { email, password };
-    await Axios.post('http://localhost:3001/auth/local-login', data);
+    const res = await Axios.post(
+      'http://localhost:3001/auth/local-login',
+      data
+    );
+    console.log(res.data);
   };
   const onChange = (event) => {
     const {

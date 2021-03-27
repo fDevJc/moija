@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
 const User = require('../models/user');
 
@@ -18,7 +19,8 @@ router.post('/local-login', async (req, res, next) => {
         console.log(loginErr);
         next(loginErr);
       }
-      res.send('login ok');
+      //const json = JSON.parse(JSON.stringify(user));
+      return res.send(user);
     });
   })(req, res, next);
 });
