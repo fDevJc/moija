@@ -4,7 +4,7 @@ const GameDetail = () => {
   return (
     <>
       <div>GameDetail</div>
-      <div>장소</div>
+      <div>장 소</div>
       <div>날짜</div>
       <div>시간</div>
       <div>
